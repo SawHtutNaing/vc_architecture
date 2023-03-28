@@ -14,14 +14,15 @@ foreach($tables as $table){
     run("DROP TABLE IF EXISTS ".$table['Tables_in_mvc_learning']);
 }
 
-run("SELECT (CONCAT('DROP TABLE IF EXISTS ',table_name,';' )) FROM information_schema.tables WHERE TABLE_SCHEMA = '$database';");
+// run("SELECT (CONCAT('DROP TABLE IF EXISTS ',table_name,';' )) FROM information_schema.tables WHERE TABLE_SCHEMA = '$database';");
 
 
 logger("All tables are dropped");
 
 
-createTable("my","name varchar(100) NOT NULL","money int(11) NOT NULL");
-createTable("a","name varchar(100) NOT NULL","money int(11) NOT NULL");
-createTable("a","name varchar(100) NOT NULL","money int(11) NOT NULL");
+createTable("mvcs","name varchar(100) NOT NULL","phone int(50) NOT NULL");
+createTable("a","name varchar(100) NOT NULL","phone int(50) NOT NULL");
+createTable("b","name varchar(100) NOT NULL","phone int(50) NOT NULL");
+
 
 

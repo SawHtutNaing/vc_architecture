@@ -49,7 +49,9 @@ function redirect(string $url ,string $message = null )
 function controller(string $controllerName ){
     $controllerArr = explode('@' , $controllerName); 
     require_once (Controller_Dir."/$controllerArr[0].controller.php");
+    
     call_user_func($controllerArr[1]);
+    
 }
 
 
@@ -69,14 +71,16 @@ function dd($data, $showType = false): void
 
 function checkRequestMethod(string $methodName)
 {
+    
     $result = false;
     $methodName = strtoupper($methodName);
     $serverRequestMethod = $_SERVER["REQUEST_METHOD"];
+    
     if ($methodName === "POST" && $serverRequestMethod === "POST") {
         $result = true;
     } elseif ($methodName === "PUT" && ( $serverRequestMethod === "PUT" || ($serverRequestMethod === "POST" && !empty($_POST["_method"]) && strtoupper($_POST["_method"]) === "PUT"))) {
         $result = true;
-    } elseif ($methodName === "DELETE" && ( $serverRequestMethod === "DELETE" || ($serverRequestMethod === "POST" && !empty($_POST["_method"]) && strtoupper($_POST["_method"]) === "DELETE"))) {
+    } elseif ($methodName === "DELETE" && ( $serverRequestMethod === "DELETE" )) {
         $result = true;
     }
 
@@ -92,7 +96,8 @@ function run(string $sql, bool $closeConnection = false): object|bool
     // dd($GLOBALS["auth"]);
     // $closeConnection = true ; 
     try {
-
+        // dd($sql);
+        // dd($GLOBALS["auth"]);
         $query = mysqli_query($GLOBALS["auth"], $sql);
         
         // if ($closeConnection) mysqli_close($GLOBALS["auth"]);
@@ -197,6 +202,7 @@ function showSession(string $key = 'message'):string{
 
 
 function paginate($sql , $limit = 10  ){
+    
     $total = first(str_replace("*" , "COUNT(id) AS total", $sql))['total'];
     // dd($total);
     
